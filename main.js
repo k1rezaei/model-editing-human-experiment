@@ -70,7 +70,7 @@ function updateImages() {
         if (record_id < log.length)
             record = log[record_id];
         else
-            record = getFirstUnrated();
+            record = getFirstUnrated();4
     }
 
     if (record != null) {
@@ -134,8 +134,15 @@ function saveProgress() {
 }
 
 function goBack() {
-    record_id -= 1;
-    updateImages();
+    const score = document.querySelector('input[name="q1"]:checked')?.value;
+    if (score) {
+        console.log(`Participant selection for: ${log[record_id]} is ${score}`);
+        log[record_id]['edit_score'] = score;
+        record_id -= 1;
+        updateImages();
+    } else {
+        alert('Please give us rating (1-5) before proceeding.');
+    }
 }
 
 function handleSelection() {

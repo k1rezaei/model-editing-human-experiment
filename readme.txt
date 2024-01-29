@@ -21,7 +21,9 @@ For each test:
 Don't forget to save your progress (this can be done by pressing "s") once a while. Otherwise you have do the whole process over and over again -:)
 Each time you save, a file will be downloaded.
 
-In order to resume from your checkpoints, please rename last checkpoint to 'log.json' and replace the old file in this directory with that checkpoint.
+In order to resume from your checkpoints,
+    please rename last checkpoint to 'log.json' and replace the old file in this directory with that checkpoint.
+    use ctrl+shift+R to resume.2
 
 
 Don't be worried that your rating might be biassed, we will hopefully debias it later.
