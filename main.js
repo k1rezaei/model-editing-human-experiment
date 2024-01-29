@@ -69,7 +69,7 @@ function updateImages() {
         <img src="${record['original_url']}" width="512" alt="Image with particular style/object/fact">
         <img src="${record['modified_url']}" width="512" alt="Image without particular style/object/fact">
         <br>
-        <p>${getQuestion(record['type'], record['hint'])}</p>
+        <p>${record_id + 1}/132 --> ${getQuestion(record['type'], record['hint'])}</p>
         <label>
             <input type="radio" id="o1" name="q1" value="1" required>
             <label for="o1"><b>1</b></label><br>
@@ -121,4 +121,3 @@ function handleSelection() {
 }
 
 init();
-
