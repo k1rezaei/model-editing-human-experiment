@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <style>
+    /* Add your styles here */
+    body {
+      font-family: 'Times New Roman', Times, serif, sans-serif;
+    }
+  </style>
+  <title>Model-editing Human Experiments</title>
+</head>
+<body>
+
+  <h1>Model-editing Human Experiments</h1>
+
+  <div id="imageContainer">
+    <!-- Images will be dynamically loaded here -->
+  </div>
+
+  <script>
+    // Add your image pairs here (replace with actual image URLs)
+    const imagePairs = [
+      ['d1.jpg', 'c1.jpg'],
+      ['d2.jpg', 'c2.jpg'],
+      // Add more pairs as needed
+    ];
+
+    const questions = [
+        ['Is the style of van gogh removed in the right image?', 'Is the right image similar to the left one?'],
+        ['Is the style of van gogh removed in the right image?', 'Is the right image similar to the left one?'],
+    ]
+
+    let currentPairIndex = 0;
+    let ans = {}
+
+    // Function to load the next image pair
+    function loadNextPair() {
+
+        // Check if all pairs have been shown
+      if (currentPairIndex === imagePairs.length) {
+        alert('Experiment completed! Thank you for participating.');
+        console.log(ans);
+        // You can handle experiment completion in a different way (e.g., submit results, redirect, etc.)
+      }
+
+      const [dogImageUrl, noDogImageUrl] = imagePairs[currentPairIndex];
+      const qs = questions[currentPairIndex][0];
+      const imageContainer = document.getElementById('imageContainer');
+
+      // Display image pair
+      imageContainer.innerHTML = `
+        <img src="${dogImageUrl}" width="100" alt="Image with Dog">
+        <img src="${noDogImageUrl}" width="100" alt="Image without Dog">
+        <br>
+        <p>${qs}</p>
+        <label>
+            <input type="radio" id="no" name="q1" value="No" required>
+            <label for="no">No</label><br>
+            <input type="radio" id="yes" name="q1" value="Yes" required>
+            <label for="yes">Yes</label><br>
+        </label>
+        <button onclick="handleSelection()">Submit</button>
+      `;
+
+      currentPairIndex++;
+
+      console.log(currentPairIndex);
+
+      
+    }
+
+    // Function to handle participant selection
+    function handleSelection() {
+        const selection = document.querySelector('input[name="q1"]:checked')?.value;
+        
+        if (selection) {
+            console.log(`Participant selected: ${selection}`);
+            ans[currentPairIndex - 1] = selection;
+            loadNextPair();
+        } else {
+            alert('Please select an image before submitting.');
+        }
+    }
+
+    loadNextPair();
+  </script>
+
+</body>
+</html>
