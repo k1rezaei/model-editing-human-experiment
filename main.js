@@ -5,6 +5,8 @@ record_id = -1
 function handleKeyPress(event) {
     if (event.key === 's') {
         saveProgress();
+    } else if (event.key == 'b') {
+        goBack();
     }
     else if (event.key == 'n') {
         handleSelection();
@@ -53,7 +55,7 @@ function getQuestion(type, hint) {
     }
     else if (type == 'object') {
         return `<font size=3><b>Q:</b> Has the <u><i>main object</i></u> <b>(` + hint + `)</b> been modified from original image (Left) compared to modified (Right)?</font>
-        <br><h5><font color="#BB0044">5 -- maximally modified (` + hint + ` is not there anymore) </font><br><font color="#4400BB"> <b>1</b> -- not modified at all (` + hint + ` is still there)</font></h5>`
+        <br><h5><font color="#BB0044">5 -- maximally modified <b>(` + hint + ` is not there anymore)</b> </font><br><font color="#4400BB"> <b>1</b> -- not modified at all <b>(` + hint + ` is still there)</b></font></h5>`
     }
     else {
         return `<font size=3><b>Q:</b> Has <u><i>the fact</i></u> <b>(` + hint + `)</b> been updated from original image (Left) compared to modified (Right)?</font>
@@ -62,8 +64,17 @@ function getQuestion(type, hint) {
 }
 
 function updateImages() {
-    record = getFirstUnrated();
+    if (record_id < 0) {
+        record = getFirstUnrated();    
+    }else{
+        if (record_id < log.length)
+            record = log[record_id];
+        else
+            record = getFirstUnrated();
+    }
+
     if (record != null) {
+        
         const imageContainer = document.getElementById('imageContainer');
         imageContainer.innerHTML = `
         <img src="${record['original_url']}" width="512" alt="Image with particular style/object/fact">
@@ -86,9 +97,22 @@ function updateImages() {
             <input type="radio" id="o5" name="q1" value="5" required>
             <label for="o5"><b>5</b></label><br>
         </label>
+        <button onclick="goBack()">Back</button>
         <button onclick="handleSelection()">Next</button>
         <button onclick="saveProgress()">Save Your Progress</button>
       `;
+      
+      if (record["edit_score"] == "1") 
+            document.getElementById('o1').checked = true;
+        else if (record["edit_score"] == "2")  
+            document.getElementById('o2').checked = true;
+        else if (record["edit_score"] == "3") 
+            document.getElementById('o3').checked = true;
+        else if (record["edit_score"] == "4") 
+            document.getElementById('o4').checked = true;
+        else if (record["edit_score"] == "5") 
+            document.getElementById('o5').checked = true;
+
     }else {
         saveProgress();
         imageContainer.innerHTML = 'Done';
@@ -109,11 +133,17 @@ function saveProgress() {
     saveJsonFile(JSON.stringify(log), 'log.json', 'text/plain')
 }
 
+function goBack() {
+    record_id -= 1;
+    updateImages();
+}
+
 function handleSelection() {
     const score = document.querySelector('input[name="q1"]:checked')?.value;
     if (score) {
         console.log(`Participant selection for: ${log[record_id]} is ${score}`);
         log[record_id]['edit_score'] = score;
+        record_id += 1;
         updateImages();
     } else {
         alert('Please give us rating (1-5) before proceeding.');
