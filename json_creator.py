@@ -1,7 +1,7 @@
 import json
 import os
 from glob import glob
-
+from urllib.parse import quote
 
 STYLE = 'style'
 FACT = 'fact'
@@ -26,6 +26,7 @@ if __name__ == '__main__':
                'british monarch',
                'cat',
                'elephant painting the style of salvador dali',
+               'nemo',
                'president of the united states',
                'rocks in the ocean in the style of monet',
                'snoopy',
@@ -44,6 +45,7 @@ if __name__ == '__main__':
         'women working in a garden in the style of van gogh': STYLE,
     }
     
+    root = 'https://github.com/k1rezaei/model-editing-human-experiment/blob/main'
     file = []
     
     for model in models:
@@ -51,6 +53,8 @@ if __name__ == '__main__':
             for prompt in prompts:
                 path = f'{model}/{seed}/{prompt}/'
                 
-                file +=    
-    
+                url = f'{root}/{model}/{seed}/{quote(prompt)}/'
+                
+                file += 
+                https://github.com/k1rezaei/model-editing-human-experiment/blob/main/OpenJourney/3/a%20town%20in%20the%20style%20of%20monet/modified.png?raw=true
     
