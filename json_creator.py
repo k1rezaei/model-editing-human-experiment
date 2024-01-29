@@ -38,6 +38,7 @@ if __name__ == '__main__':
         'a town in the style of monet': STYLE,
         'british monarch': FACT,
         'cat': OBJECT,
+        'nemo': OBJECT, 
         'elephant painting the style of salvador dali': STYLE,
         'president of the united states': FACT,
         'rocks in the ocean in the style of monet': STYLE,
@@ -48,13 +49,28 @@ if __name__ == '__main__':
     root = 'https://github.com/k1rezaei/model-editing-human-experiment/blob/main'
     file = []
     
-    for model in models:
-        for seed in seeds:
-            for prompt in prompts:
+    for prompt in prompts:
+        for model in models:
+            if model == DEEP_FLOYD and prompt == 'nemo':
+                continue
+            
+            for seed in seeds:
                 path = f'{model}/{seed}/{prompt}/'
                 
-                url = f'{root}/{model}/{seed}/{quote(prompt)}/'
+                url = f'{root}/{model}/{seed}/{quote(prompt)}'
+                original_url = f'{url}/orig.png?raw=true'
+                modified_url = f'{url}/modified.png?raw=true'
                 
-                file += 
-                https://github.com/k1rezaei/model-editing-human-experiment/blob/main/OpenJourney/3/a%20town%20in%20the%20style%20of%20monet/modified.png?raw=true
+                record = {
+                    'original_url': original_url,
+                    'modified_url': modified_url,
+                    'type': types[prompt],
+                    'edit_score': -1,
+                }
+                
+                file.append(record)
+                
+    
+    with open('log.json', 'w') as f:
+        f.write(json.dumps(file, indent=4))
     
