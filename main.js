@@ -53,7 +53,7 @@ function getQuestion(type, hint) {
     }
     else if (type == 'object') {
         return `<font size=3><b>Q:</b> Has the <u><i>main object</i></u> <b>(` + hint + `)</b> been modified from original image (Left) compared to modified (Right)?</font>
-        <br><h5><font color="#BB0044">5 -- maximally modified</font><br><font color="#4400BB"> <b>1</b> -- not modified at all</font></h5>`
+        <br><h5><font color="#BB0044">5 -- maximally modified (` + hint + ` is not there anymore) </font><br><font color="#4400BB"> <b>1</b> -- not modified at all (` + hint + ` is still there)</font></h5>`
     }
     else {
         return `<font size=3><b>Q:</b> Has <u><i>the fact</i></u> <b>(` + hint + `)</b> been updated from original image (Left) compared to modified (Right)?</font>
