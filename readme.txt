@@ -1,13 +1,14 @@
 please run this command first:
 
 Python2:
-python -m SimpleHTTPServer
+python -m SimpleHTTPServer 8000
 
 Python3:
-python3 -m http.server
+python3 -m http.server 8000
 --------------------------------
 
-Open main.html
+open following url: http://localhost:8000/main.html
+
 There 150 tests that you should answer.
 
 For each test:
