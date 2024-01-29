@@ -15,9 +15,20 @@ SD_V2 = 'SD-v2'
 SD_XL = 'SD-XL'
 
 
+def get_hint(prompt, type):
+    if type == FACT or type == OBJECT:
+        return prompt
+    else:
+        artists = ['van gogh', 'monet', 'salvador dali']
+        for artist in artists:
+            if artist in prompt:
+                return artist
+    
+    assert(0)
+
 if __name__ == '__main__':
 
-    models = [DEEP_FLOYD, OPEN_JOURNEY, SD_V1, SD_V2, SD_XL]
+    models = [OPEN_JOURNEY, SD_V1, SD_V2, SD_XL] # DEEP_FLOYD]
     seeds = ['1', '2', '3']
     
     prompts = ['a house in the style of van gogh',
@@ -65,7 +76,10 @@ if __name__ == '__main__':
                     'original_url': original_url,
                     'modified_url': modified_url,
                     'type': types[prompt],
-                    'edit_score': -1,
+                    'prompt': prompt,
+                    'model': model, 
+                    'edit_score': "-1",
+                    'hint': get_hint(prompt, types[prompt]),
                 }
                 
                 file.append(record)
@@ -73,4 +87,3 @@ if __name__ == '__main__':
     
     with open('log.json', 'w') as f:
         f.write(json.dumps(file, indent=4))
-    
