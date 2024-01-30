@@ -23,7 +23,7 @@ Each time you save, a file will be downloaded.
 
 In order to resume from your checkpoints,
     please rename last checkpoint to 'log.json' and replace the old file in this directory with that checkpoint.
-    use ctrl+shift+R to resume.2
+    use ctrl+shift+R to resume.
 
 
 Don't be worried that your rating might be biassed, we will hopefully debias it later.
